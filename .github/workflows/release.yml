@@ -17,8 +17,7 @@ jobs:
     steps:
       - name: 签出代码
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag_name || github.ref_name }}
+        
 
       - name: 下载Android keystore
         id: android_keystore
@@ -68,8 +67,7 @@ jobs:
     steps:
       - name: 签出代码
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag_name || github.ref_name || 'main'  }}
+
 
           
       - name: Decode MSIX Certificate
@@ -190,8 +188,7 @@ jobs:
     steps:
       - name: 签出代码
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag_name || github.ref_name || 'main'   }}
+
 
       - name: 设置Flutter环境
         uses: subosito/flutter-action@v2
@@ -240,8 +237,7 @@ jobs:
     steps:
       - name: 签出代码（用于读取 version.json）
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag_name || github.ref_name || 'main'   }}
+
 
       - name: 下载所有构建产物
         uses: actions/download-artifact@v4
