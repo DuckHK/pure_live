@@ -42,6 +42,12 @@ final Directory appDir = Platform.isWindows
 
 String path = '${appDir.path}${Platform.pathSeparator}pure_live${instanceId.isNotEmpty ? "${Platform.pathSeparator}$instanceId" : ""}';
 // --- 修改结束 ---
+// 关键补丁：确保文件夹存在，否则 Hive 初始化可能会因为找不到路径而走入异常流程
+final dir = Directory(path);
+if (!dir.existsSync()) {
+  dir.createSync(recursive: true);
+}
+// --- 修改结束 ---
 
     try {
       await SupaBaseManager.getInstance().initial();
