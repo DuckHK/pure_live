@@ -34,9 +34,14 @@ class AppInitializer {
       }
     }
 
-    final appDir = await getApplicationDocumentsDirectory();
-    String path =
-        '${appDir.path}${Platform.pathSeparator}pure_live${instanceId.isNotEmpty ? "${Platform.pathSeparator}$instanceId" : ""}';
+    // --- 修改开始 ---
+// 判断是否为 Windows 平台，若是则使用 Support 目录 (AppData)，否则使用文档目录
+final Directory appDir = Platform.isWindows 
+    ? await getApplicationSupportDirectory() 
+    : await getApplicationDocumentsDirectory();
+
+String path = '${appDir.path}${Platform.pathSeparator}pure_live${instanceId.isNotEmpty ? "${Platform.pathSeparator}$instanceId" : ""}';
+// --- 修改结束 ---
 
     try {
       await SupaBaseManager.getInstance().initial();
